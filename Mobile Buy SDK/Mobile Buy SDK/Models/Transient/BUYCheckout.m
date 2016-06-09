@@ -31,6 +31,7 @@
 #import "BUYCheckoutAttribute.h"
 #import "BUYGiftCard.h"
 #import "BUYLineItem.h"
+#import "BUYCartLineItem.h"
 #import "BUYShippingRate.h"
 
 #import "NSArray+BUYAdditions.h"
@@ -131,7 +132,7 @@
 - (void)updateWithCart:(BUYCart *)cart
 {
 	NSArray *lineItems = [[cart.lineItems array] buy_map:^id(BUYCartLineItem *cartLineItem) {
-		BUYLineItem *lineItem = [self.modelManager buy_objectWithEntityName:[BUYLineItem entityName] JSONDictionary:nil];
+		BUYLineItem *lineItem = [self.modelManager buy_objectWithEntityName:[BUYLineItem entityName] JSONDictionary:@{@"variant_id": cartLineItem.variantId}];
 		[lineItem updateWithLineItem:cartLineItem];
 		return lineItem;
 	}];
