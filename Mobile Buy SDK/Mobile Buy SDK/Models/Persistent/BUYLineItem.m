@@ -51,6 +51,12 @@
 	self.quantity = lineItem.quantity;
 }
 
++ (NSPredicate *)fetchPredicateWithJSON:(NSDictionary *)JSONDictionary
+{
+	NSNumber *variantId = JSONDictionary[@"variant_id"];
+	return (variantId) ? [NSPredicate predicateWithFormat:@"%K = %@", BUYLineItemAttributes.variantId, variantId] : nil;
+}
+
 @end
 
 @implementation BUYModelManager (BUYLineItemCreation)
