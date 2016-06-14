@@ -29,6 +29,9 @@
 #import "BUYClient+Checkout.h"
 #import "BUYAssert.h"
 
+#define BUY_HAS_FEATURE(feature)  !(defined(__has_feature) && __has_feature(feature))
+#define BUY_IN_EXTENSION          BUY_HAS_FEATURE(attribute_availability_app_extension)
+
 @import SafariServices;
 
 Class SafariViewControllerClass;
@@ -169,9 +172,11 @@ static NSString *const WebCheckoutCustomerAccessToken = @"customer_access_token"
 		safariViewController.delegate = self;
 		[self.delegate paymentProvider:self wantsControllerPresented:safariViewController];
 	}
+#if !BUY_IN_EXTENSION
 	else {
 		[[UIApplication sharedApplication] openURL:checkoutURL];
 	}
+#endif
 }
 
 - (NSURL *)authenticatedWebCheckoutURL:(NSURL *)url
