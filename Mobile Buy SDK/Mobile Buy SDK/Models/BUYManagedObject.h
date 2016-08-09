@@ -28,7 +28,7 @@
 #import <Buy/BUYObject.h>
 NS_ASSUME_NONNULL_BEGIN
 
-#if defined CORE_DATA_PERSISTENCE
+#ifdef CORE_DATA_PERSISTENCE
 
 #define BUYCachedObject BUYManagedObject
 
