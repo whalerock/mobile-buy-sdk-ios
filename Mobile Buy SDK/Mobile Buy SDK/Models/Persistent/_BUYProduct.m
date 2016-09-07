@@ -37,7 +37,6 @@ const struct BUYProductAttributes BUYProductAttributes = {
 	.productType = @"productType",
 	.published = @"published",
 	.publishedAt = @"publishedAt",
-	.tags = @"tags",
 	.title = @"title",
 	.updatedAt = @"updatedAt",
 	.vendor = @"vendor",
@@ -47,6 +46,7 @@ const struct BUYProductRelationships BUYProductRelationships = {
 	.collections = @"collections",
 	.images = @"images",
 	.options = @"options",
+	.tags = @"tags",
 	.variants = @"variants",
 };
 
@@ -91,7 +91,6 @@ const struct BUYProductUserInfo BUYProductUserInfo = {
 @dynamic productType;
 @dynamic published;
 @dynamic publishedAt;
-@dynamic tags;
 @dynamic title;
 @dynamic updatedAt;
 @dynamic vendor;
@@ -160,6 +159,19 @@ const struct BUYProductUserInfo BUYProductUserInfo = {
 	NSMutableOrderedSet *result = (NSMutableOrderedSet *)[self mutableOrderedSetValueForKey:@"options"];
 
 	[self didAccessValueForKey:@"options"];
+	return result;
+}
+
+#if defined CORE_DATA_PERSISTENCE
+@dynamic tags;
+#endif
+
+- (NSMutableSet *)tagsSet {
+	[self willAccessValueForKey:@"tags"];
+
+	NSMutableSet *result = (NSMutableSet *)[self mutableSetValueForKey:@"tags"];
+
+	[self didAccessValueForKey:@"tags"];
 	return result;
 }
 

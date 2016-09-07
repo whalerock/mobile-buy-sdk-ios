@@ -51,6 +51,7 @@
 #import "BUYShippingRate.h"
 #import "BUYShop.h"
 #import "BUYTaxLine.h"
+#import "BUYTag.h"
 
 // Model support
 #import "BUYError.h"

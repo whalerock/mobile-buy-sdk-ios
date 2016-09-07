@@ -39,7 +39,6 @@ extern const struct BUYProductAttributes {
 	__unsafe_unretained NSString *productType;
 	__unsafe_unretained NSString *published;
 	__unsafe_unretained NSString *publishedAt;
-	__unsafe_unretained NSString *tags;
 	__unsafe_unretained NSString *title;
 	__unsafe_unretained NSString *updatedAt;
 	__unsafe_unretained NSString *vendor;
@@ -49,6 +48,7 @@ extern const struct BUYProductRelationships {
 	__unsafe_unretained NSString *collections;
 	__unsafe_unretained NSString *images;
 	__unsafe_unretained NSString *options;
+	__unsafe_unretained NSString *tags;
 	__unsafe_unretained NSString *variants;
 } BUYProductRelationships;
 
@@ -59,9 +59,8 @@ extern const struct BUYProductUserInfo {
 @class BUYCollection;
 @class BUYImageLink;
 @class BUYOption;
+@class BUYTag;
 @class BUYProductVariant;
-
-@class NSSet;
 
 @class BUYProduct;
 @interface BUYModelManager (BUYProductInserting)
@@ -132,13 +131,6 @@ extern const struct BUYProductUserInfo {
 @property (nonatomic, strong) NSDate* publishedAt;
 
 /**
- * A categorization that a product can be tagged with.
- *
- * Commonly used for filtering and searching. Each tag has a imit of 255 characters.
- */
-@property (nonatomic, strong) NSSet* tags;
-
-/**
  * The name of the product.
  *
  * In a shop's catalog, clicking on a product's title takes you to that product's page. On a product's page, the product's title typically appears in a large font.
@@ -177,6 +169,9 @@ extern const struct BUYProductUserInfo {
 @property (nonatomic, strong) NSOrderedSet *options;
 - (NSMutableOrderedSet *)optionsSet;
 
+@property (nonatomic, strong) NSSet *tags;
+- (NSMutableSet *)tagsSet;
+
 /**
  * A list of BUYProductVariant objects, each one representing a slightly different version of the product.
  */
@@ -208,6 +203,10 @@ extern const struct BUYProductUserInfo {
 - (void)removeOptionsAtIndexes:(NSIndexSet *)indexes;
 - (void)replaceObjectInOptionsAtIndex:(NSUInteger)idx withObject:(BUYOption *)value;
 - (void)replaceOptionsAtIndexes:(NSIndexSet *)indexes withOptions:(NSArray *)values;
+
+@end
+
+@interface _BUYProduct (TagsCoreDataGeneratedAccessors)
 
 @end
 
@@ -248,9 +247,6 @@ extern const struct BUYProductUserInfo {
 - (NSDate*)primitivePublishedAt;
 - (void)setPrimitivePublishedAt:(NSDate*)value;
 
-- (NSSet*)primitiveTags;
-- (void)setPrimitiveTags:(NSSet*)value;
-
 - (NSString*)primitiveTitle;
 - (void)setPrimitiveTitle:(NSString*)value;
 
@@ -268,6 +264,9 @@ extern const struct BUYProductUserInfo {
 
 - (NSMutableOrderedSet *)primitiveOptions;
 - (void)setPrimitiveOptions:(NSMutableOrderedSet *)value;
+
+- (NSMutableSet *)primitiveTags;
+- (void)setPrimitiveTags:(NSMutableSet *)value;
 
 - (NSMutableOrderedSet *)primitiveVariants;
 - (void)setPrimitiveVariants:(NSMutableOrderedSet *)value;

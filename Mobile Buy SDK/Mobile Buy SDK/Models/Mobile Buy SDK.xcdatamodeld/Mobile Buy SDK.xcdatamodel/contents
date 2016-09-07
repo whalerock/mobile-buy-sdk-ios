@@ -722,14 +722,6 @@
                 <entry key="documentation" value="The publish date for a product."/>
             </userInfo>
         </attribute>
-        <attribute name="tags" optional="YES" attributeType="Transformable" syncable="YES">
-            <userInfo>
-                <entry key="attributeValueClassName" value="NSSet"/>
-                <entry key="discussion" value="Commonly used for filtering and searching. Each tag has a imit of 255 characters."/>
-                <entry key="documentation" value="A categorization that a product can be tagged with."/>
-                <entry key="JSONValueTransformer" value="BUYProductTags"/>
-            </userInfo>
-        </attribute>
         <attribute name="title" optional="YES" attributeType="String" indexed="YES" syncable="YES">
             <userInfo>
                 <entry key="discussion" value="In a shop's catalog, clicking on a product's title takes you to that product's page. On a product's page, the product's title typically appears in a large font."/>
@@ -764,6 +756,7 @@
                 <entry key="documentation" value="Custom product property names like &quot;Size&quot;, &quot;Color&quot;, and &quot;Material&quot;."/>
             </userInfo>
         </relationship>
+        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="product" inverseEntity="Tag" syncable="YES"/>
         <relationship name="variants" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ProductVariant" inverseName="product" inverseEntity="ProductVariant" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="A list of BUYProductVariant objects, each one representing a slightly different version of the product."/>
@@ -937,6 +930,10 @@
             <entry key="documentation" value="The BUYShop object is a collection of the general settings and information about the shop."/>
         </userInfo>
     </entity>
+    <entity name="Tag" representedClassName="BUYTag" syncable="YES">
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="product" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Product" inverseName="tags" inverseEntity="Product" syncable="YES"/>
+    </entity>
     <entity name="TaxLine" representedClassName="BUYTaxLine" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
@@ -979,6 +976,7 @@
         <memberEntity name="LineItem"/>
         <memberEntity name="Order"/>
         <memberEntity name="Address"/>
+        <memberEntity name="Tag"/>
     </configuration>
     <configuration name="transient">
         <memberEntity name="Checkout"/>
@@ -1005,10 +1003,11 @@
         <element name="Option" positionX="-1588" positionY="1287" width="128" height="105"/>
         <element name="OptionValue" positionX="-1390" positionY="894" width="128" height="105"/>
         <element name="Order" positionX="-549" positionY="1647" width="128" height="180"/>
-        <element name="Product" positionX="-1390" positionY="1018" width="128" height="300"/>
+        <element name="Product" positionX="-1390" positionY="1018" width="128" height="285"/>
         <element name="ProductVariant" positionX="-1192" positionY="1063" width="128" height="240"/>
         <element name="ShippingRate" positionX="-569" positionY="1836" width="128" height="135"/>
         <element name="Shop" positionX="-1786" positionY="843" width="128" height="255"/>
+        <element name="Tag" positionX="-1584" positionY="999" width="128" height="75"/>
         <element name="TaxLine" positionX="-990" positionY="1737" width="128" height="133"/>
     </elements>
 </model>

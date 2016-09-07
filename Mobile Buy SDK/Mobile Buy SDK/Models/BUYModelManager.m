@@ -37,7 +37,6 @@
 // Structured value transformer names
 NSString * const BUYDeliveryRangeTransformerName = @"BUYDeliveryRange";
 NSString * const BUYFlatArrayTransformerName = @"BUYFlatArray";
-NSString * const BUYProductTagsTransformerName = @"BUYProductTags";
 
 @interface NSBundle (BUYAdditions)
 + (instancetype)frameworkBundle;
@@ -56,7 +55,6 @@ NSString * const BUYProductTagsTransformerName = @"BUYProductTags";
 	dispatch_once(&onceToken, ^{
 		[NSValueTransformer setValueTransformer:[[BUYDeliveryRangeTransformer alloc] init] forName:BUYDeliveryRangeTransformerName];
 		[NSValueTransformer setValueTransformer:[BUYFlatCollectionTransformer arrayTransformer] forName:BUYFlatArrayTransformerName];
-		[NSValueTransformer setValueTransformer:[BUYFlatCollectionTransformer setTransformerWithSeparator:@", "] forName:BUYProductTagsTransformerName];
 	});
 }
 
